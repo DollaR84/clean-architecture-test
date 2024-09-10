@@ -1,0 +1,38 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres
+    env_file: .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "python vcboard/main.py"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - selenium
+    env_file: .env
+    environment:
+      SELENIUM_HOST: selenium
+      SELENIUM_PORT: 4444
+
+  selenium:
+    environment:
+      - VNC_NO_PASSWORD=1
+    image: selenium/standalone-chrome:latest
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+
+volumes:
+  postgres_data:

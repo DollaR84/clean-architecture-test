@@ -1,0 +1,25 @@
+from application.interactors import CreateUploadFile, CreateWebsitesInfo
+from application.services import UploadService
+
+from config import Config
+
+from dishka import from_context, Provider, Scope, provide
+
+
+class ServiceProvider(Provider):
+    scope = Scope.REQUEST
+
+    config = from_context(provides=Config, scope=Scope.APP)
+
+    @provide(scope=Scope.REQUEST)
+    async def get_upload_service(
+            self,
+            config: Config,
+            interactor_upload_file: CreateUploadFile,
+            interactor_websites_info: CreateWebsitesInfo,
+    ) -> UploadService:
+        return UploadService(
+            config,
+            interactor_upload_file,
+            interactor_websites_info,
+        )

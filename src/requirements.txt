@@ -1,0 +1,14 @@
+Django
+psycopg2
+asyncpg
+coloredlogs
+beautifulsoup4
+selenium
+python-dotenv
+lxml
+dishka
+sqlalchemy
+fastapi
+email-validator
+python-multipart
+uvicorn

@@ -1,0 +1,9 @@
+.idea
+.git
+.gitignore
+venv/
+.env/
+.env
+*.log
+.flake8
+uploads/
