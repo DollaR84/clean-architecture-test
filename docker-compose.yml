@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: sh -c "python vcboard/main.py"
+    command: sh -c "python src/main.py"
     volumes:
       - .:/app
     ports:
