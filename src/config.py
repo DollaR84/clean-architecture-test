@@ -25,7 +25,7 @@ class APIConfig:
 
 @dataclass(slots=True)
 class CsvConfig:
-    delimiter: str = ';'
+    delimiter: str = ','
     quotechar: str = '|'
     url_column_name: str = "url"
 

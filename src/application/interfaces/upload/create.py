@@ -12,3 +12,13 @@ class CreateUploadFile(Protocol):
             data: domain.UploadFile,
     ) -> domain.UploadFile:
         ...
+
+
+class CreateUpload(Protocol):
+
+    @abstractmethod
+    async def create_upload(
+            self,
+            data: domain.Upload,
+    ) -> domain.Upload:
+        ...

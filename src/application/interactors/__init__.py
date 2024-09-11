@@ -1,3 +1,4 @@
+from .upload import CreateUpload, CreateUploadFile
 from .website import (
     CreateWebsitesInfo,
     DeleteWebsiteInfo,
@@ -8,6 +9,9 @@ from .website import (
 
 
 __all__ = [
+    "CreateUpload",
+    "CreateUploadFile",
+
     "CreateWebsitesInfo",
     "DeleteWebsiteInfo",
     "GetWebsiteInfo",

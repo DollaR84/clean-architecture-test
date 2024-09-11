@@ -1,5 +1,5 @@
 from .contact import ContactData, UpdateContactData
-from .upload import UploadData
+from .upload import UploadData, UploadResponse
 from .website import WebsiteFilterParams, WebsitesFilterParams
 
 
@@ -8,6 +8,7 @@ __all__ = [
     "UpdateContactData",
 
     "UploadData",
+    "UploadResponse",
 
     "WebsiteFilterParams",
     "WebsitesFilterParams",
