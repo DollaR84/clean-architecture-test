@@ -1,12 +1,20 @@
 from django.contrib import admin
-from .models import FileUpload, Service, WebsiteInfo
+from .models import FileUpload, Upload, Service, WebsiteInfo
 
 
 @admin.register(FileUpload)
 class FileUploadAdmin(admin.ModelAdmin):
     empty_value_display = "-empty-"
     list_display = (
-        "id", "file",
+        "id", "filename",
+    )
+
+
+@admin.register(Upload)
+class UploadAdmin(admin.ModelAdmin):
+    empty_value_display = "-empty-"
+    list_display = (
+        "id", "file_id", "status",
     )
 
 

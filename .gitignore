@@ -162,3 +162,4 @@ cython_debug/
 
 .flake8
 uploads/
+wsl2win/

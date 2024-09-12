@@ -36,12 +36,13 @@ class Upload(models.Model):
     id = models.BigAutoField(primary_key=True)
     uuid_id = models.CharField(max_length=36, unique=True, null=False)
 
-    urls = models.TextField(null=False)
+    urls = models.TextField(null=True)
     file = models.ForeignKey(
         "FileUpload",
         blank=True,
         null=True,
         default=None,
+        on_delete=models.CASCADE,
         verbose_name="Upload file",
     )
 

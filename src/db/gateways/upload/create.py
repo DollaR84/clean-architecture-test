@@ -6,7 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from ..base import BaseGateway
 
-from ...models import Upload, UploadFile
+from ...models import Upload, FileUpload
 
 
 class CreateUploadFile(BaseGateway):
@@ -15,7 +15,7 @@ class CreateUploadFile(BaseGateway):
             self,
             data: domain.UploadFile,
     ) -> domain.UploadFile:
-        upload_file = UploadFile(
+        upload_file = FileUpload(
             filename=data.filename,
         )
 
@@ -27,7 +27,7 @@ class CreateUploadFile(BaseGateway):
             return data
         except SQLAlchemyError as error:
             logging.error(error, exc_info=True)
-            raise ValueError("Error creating new UploadFile record")
+            raise ValueError("Error creating new FileUpload record")
 
 
 class CreateUpload(BaseGateway):

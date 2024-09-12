@@ -7,8 +7,8 @@ from .base import BaseData
 
 @dataclass(slots=True)
 class UploadFile(BaseData):
-    id: int | None = None
     filename: str
+    id: int | None = None
 
 
 @dataclass(slots=True, init=False)
@@ -17,12 +17,12 @@ class Upload(BaseData):
     uuid_id: str | None = None
     file_id: int | None = None
 
-    _urls: list[str] = []
+    _urls: list[str] | None = None
     status: StatusType = StatusType.NOT_STARTED
 
     def __init__(
             self,
-            urls: list[str] | str = [],
+            urls: list[str] | str | None = None,
             status: StatusType = StatusType.NOT_STARTED,
             id: int | None = None,
             uuid_id: str | None = None,

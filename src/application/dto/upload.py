@@ -12,8 +12,8 @@ class UploadData(BaseData):
 
 @dataclass(slots=True)
 class UploadFile(BaseData):
-    id: int | None = None
     filename: str
+    id: int | None = None
 
 
 class UploadCsvFile(UploadFile):
@@ -30,5 +30,5 @@ class Upload(BaseData):
     uuid_id: str | None = None
     file_id: int | None = None
 
-    urls: list[str] = []
+    urls: list[str] | None = None
     status: StatusType = StatusType.NOT_STARTED

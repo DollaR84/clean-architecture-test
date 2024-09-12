@@ -24,7 +24,7 @@ class Upload(BaseDBModel, Base):
         default=lambda: str(uuid.uuid4()),
     )
 
-    urls: so.Mapped[str] = so.mapped_column(nullable=False)
+    urls: so.Mapped[str] = so.mapped_column(nullable=True)
     file_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("file_uploads.id"), nullable=True)
     file: so.Mapped["FileUpload"] = so.relationship(foreign_keys=file_id)
 

@@ -12,7 +12,7 @@ from fastapi import APIRouter, File, UploadFile, status
 from .. import schemas
 
 
-router = APIRouter(prefix="upload", route_class=DishkaRoute)
+router = APIRouter(prefix="/upload", route_class=DishkaRoute)
 
 
 @router.post(

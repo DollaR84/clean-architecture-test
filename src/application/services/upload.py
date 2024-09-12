@@ -1,10 +1,12 @@
+from concurrent.futures import ThreadPoolExecutor, Future, as_completed
 import csv
 from functools import singledispatchmethod
 import logging
 import shutil
 
 from application import dto
-from application.interactors import CreateUploadFile, CreateWebsitesInfo
+from application.interactors import CreateUpload, CreateUploadFile, CreateWebsitesInfo
+from application.parsers import Parser
 
 from config import Config
 
@@ -16,10 +18,12 @@ class UploadService:
     def __init__(
             self,
             config: Config,
+            interactor_create_upload: CreateUpload,
             interactor_upload_file: CreateUploadFile,
             interactor_websites_info: CreateWebsitesInfo,
     ):
         self.config = config
+        self.interactor_create_upload: CreateUpload = interactor_create_upload
         self.interactor_upload_file: CreateUploadFile = interactor_upload_file
         self.interactor_websites_info: CreateWebsitesInfo = interactor_websites_info
 
@@ -87,4 +91,20 @@ class UploadService:
         self.file_id = result.id
 
     async def process(self):
-        pass
+        upload_data = await CreateUpload(dto.Upload(urls=self.urls))
+        await self.interactor_create_upload(upload_data)
+
+        with ThreadPoolExecutor() as executor:
+            futures: dict[Future, int] = {
+                executor.submit(self._parse, url): index
+                for index, url in enumerate(self.urls)
+            }
+
+            for future in as_completed(futures):
+                futures.pop(future)
+
+    async def parse(self, url: str):
+        parser = Parser(url)
+        contact = parser.get_data()
+
+        await self.interactor_websites_info([contact])

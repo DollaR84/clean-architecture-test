@@ -13,7 +13,7 @@ from .dependencies import get_websites_filters
 from .. import schemas
 
 
-router = APIRouter(prefix="websites", route_class=DishkaRoute)
+router = APIRouter(prefix="/websites", route_class=DishkaRoute)
 
 
 @router.get(

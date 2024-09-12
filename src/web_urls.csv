@@ -1,3 +1,3 @@
-id,name,url,address,emails,phones
-1,crunchbase,crunchbase.com,,crunchbase@gmail.com,
-2,novaera,novaera.com.ua,,,
+uuid,name,homepage_url,city,region,country_code,short_description
+,crunchbase,crunchbase.com,,,,
+,novaera,novaera.com.ua,,,,

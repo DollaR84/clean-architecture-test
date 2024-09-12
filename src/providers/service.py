@@ -1,4 +1,4 @@
-from application.interactors import CreateUploadFile, CreateWebsitesInfo
+from application.interactors import CreateUpload, CreateUploadFile, CreateWebsitesInfo
 from application.services import UploadService
 
 from config import Config
@@ -15,11 +15,13 @@ class ServiceProvider(Provider):
     async def get_upload_service(
             self,
             config: Config,
+            interactor_create_upload: CreateUpload,
             interactor_upload_file: CreateUploadFile,
             interactor_websites_info: CreateWebsitesInfo,
     ) -> UploadService:
         return UploadService(
             config,
+            interactor_create_upload,
             interactor_upload_file,
             interactor_websites_info,
         )
