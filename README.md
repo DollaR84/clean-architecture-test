@@ -17,3 +17,7 @@ Clean Architecture Test Project
   --name yourcontainername \
   yourimagename``
 
+
+* create enums in postgresql database:
+Connect to psql in database service, use database_name and run:
+CREATE TYPE status_type AS ENUM ('NOT_STARTED', 'PENDING', 'PARSING', 'SAVING', 'DONE', 'ERROR');

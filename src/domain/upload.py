@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import uuid
 
 from application.types import StatusType
 
@@ -14,7 +15,7 @@ class UploadFile(BaseData):
 @dataclass(slots=True, init=False)
 class Upload(BaseData):
     id: int | None = None
-    uuid_id: str | None = None
+    uuid_id: uuid.UUID | None = None
     file_id: int | None = None
 
     _urls: list[str] | None = None
@@ -25,14 +26,14 @@ class Upload(BaseData):
             urls: list[str] | str | None = None,
             status: StatusType = StatusType.NOT_STARTED,
             id: int | None = None,
-            uuid_id: str | None = None,
+            uuid_id: uuid.UUID | None = None,
             file_id: int | None = None,
     ):
         self.urls: list[str] | str = urls
         self.status: StatusType = status
-        self.id: int | None = id,
-        self.uuid_id: str | None = uuid_id,
-        self.file_id: int | None = file_id,
+        self.id: int | None = id
+        self.uuid_id: uuid.UUID | None = uuid_id
+        self.file_id: int | None = file_id
 
     @property
     def urls(self) -> list[str]:

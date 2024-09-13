@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+import uuid
 
 from application.types import StatusType
 
@@ -27,7 +28,7 @@ class UploadTxtFile(UploadFile):
 @dataclass(slots=True)
 class Upload(BaseData):
     id: int | None = None
-    uuid_id: str | None = None
+    uuid_id: uuid.UUID | None = None
     file_id: int | None = None
 
     urls: list[str] | None = None

@@ -1,6 +1,8 @@
 from django.db import models
 
-from .types import StatusType
+import uuid
+
+from application.types import StatusType
 
 
 class WebsiteInfo(models.Model):
@@ -34,7 +36,7 @@ class Upload(models.Model):
         verbose_name_plural = "Uploaded data"
 
     id = models.BigAutoField(primary_key=True)
-    uuid_id = models.CharField(max_length=36, unique=True, null=False)
+    uuid_id = models.UUIDField(unique=True, null=False, default=uuid.uuid4)
 
     urls = models.TextField(null=True)
     file = models.ForeignKey(
@@ -48,7 +50,7 @@ class Upload(models.Model):
 
     status = models.CharField(
         max_length=12,
-        choices=StatusType.choices,
+        choices=[(el, el.value) for el in StatusType],
         null=False, default=StatusType.NOT_STARTED,
         verbose_name="Status",
     )

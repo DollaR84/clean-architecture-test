@@ -16,12 +16,12 @@ class ServiceProvider(Provider):
             self,
             config: Config,
             interactor_create_upload: CreateUpload,
-            interactor_upload_file: CreateUploadFile,
-            interactor_websites_info: CreateWebsitesInfo,
+            interactor_create_upload_file: CreateUploadFile,
+            interactor_create_websites_info: CreateWebsitesInfo,
     ) -> UploadService:
         return UploadService(
             config,
             interactor_create_upload,
-            interactor_upload_file,
-            interactor_websites_info,
+            interactor_create_upload_file,
+            interactor_create_websites_info,
         )

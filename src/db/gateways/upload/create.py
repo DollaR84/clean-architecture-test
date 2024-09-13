@@ -46,9 +46,9 @@ class CreateUpload(BaseGateway):
             await self.session.commit()
 
             data.id = upload.id
-            if data.uuid_id is None:
-                data.uuid_id = upload.uuid_id
+            data.uuid_id = upload.uuid_id
             return data
+
         except SQLAlchemyError as error:
             logging.error(error, exc_info=True)
             raise ValueError("Error creating new Upload record")

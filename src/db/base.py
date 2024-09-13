@@ -9,7 +9,7 @@ class Base(DeclarativeBase):
     pass
 
 
-class DbGateway(Protocol):
+class DbConnector(Protocol):
 
     @abstractmethod
     async def get_session(self) -> AsyncIterable[AsyncSession]:

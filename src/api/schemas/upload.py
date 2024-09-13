@@ -1,3 +1,5 @@
+import uuid
+
 from pydantic import BaseModel
 
 
@@ -6,5 +8,5 @@ class UploadData(BaseModel):
 
 
 class UploadResponse(BaseModel):
-    uuid: str
+    uuid: uuid.UUID
     status: str

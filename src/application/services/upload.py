@@ -1,4 +1,4 @@
-from concurrent.futures import ThreadPoolExecutor, Future, as_completed
+import asyncio
 import csv
 from functools import singledispatchmethod
 import logging
@@ -19,13 +19,13 @@ class UploadService:
             self,
             config: Config,
             interactor_create_upload: CreateUpload,
-            interactor_upload_file: CreateUploadFile,
-            interactor_websites_info: CreateWebsitesInfo,
+            interactor_create_upload_file: CreateUploadFile,
+            interactor_create_websites_info: CreateWebsitesInfo,
     ):
-        self.config = config
+        self.config: Config = config
         self.interactor_create_upload: CreateUpload = interactor_create_upload
-        self.interactor_upload_file: CreateUploadFile = interactor_upload_file
-        self.interactor_websites_info: CreateWebsitesInfo = interactor_websites_info
+        self.interactor_create_upload_file: CreateUploadFile = interactor_create_upload_file
+        self.interactor_create_websites_info: CreateWebsitesInfo = interactor_create_websites_info
 
         self.urls: list[str] = []
         self.file_id: int | None = None
@@ -91,20 +91,24 @@ class UploadService:
         self.file_id = result.id
 
     async def process(self):
-        upload_data = await CreateUpload(dto.Upload(urls=self.urls))
-        await self.interactor_create_upload(upload_data)
+        upload_data = dto.Upload(urls=self.urls)
+        upload_data = await self.interactor_create_upload(upload_data)
 
-        with ThreadPoolExecutor() as executor:
-            futures: dict[Future, int] = {
-                executor.submit(self._parse, url): index
-                for index, url in enumerate(self.urls)
-            }
+        tasks: list[asyncio.Task] = [
+            asyncio.create_task(self._parse(url, self.interactor_create_websites_info))
+            for url in self.urls
+        ]
 
-            for future in as_completed(futures):
-                futures.pop(future)
+        for task in tasks:
+            if task.done():
+                tasks.pop(task)
 
-    async def parse(self, url: str):
+    async def _parse(
+            self,
+            url: str,
+            interactor_create_websites_info: CreateWebsitesInfo,
+    ):
         parser = Parser(url)
         contact = parser.get_data()
 
-        await self.interactor_websites_info([contact])
+        await interactor_create_websites_info([contact])
