@@ -99,10 +99,6 @@ class UploadService:
             for url in self.urls
         ]
 
-        for task in tasks:
-            if task.done():
-                tasks.pop(task)
-
     async def _parse(
             self,
             url: str,
